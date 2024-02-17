@@ -2,8 +2,6 @@
 #include <iostream>
 #include <string>
 
-// Define the Enigma components
-//char CHIFFRE[26]              = {'1', '2', '3', '4', '5', '6', '7', '8', '9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26'};
 char ROMAN[26]                  = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
 char STATIC_ROTOR[26]           = {'T', 'L', 'B', 'V', 'R', 'W', 'X', 'Y', 'G', 'Z', 'A', 'S', 'J', 'K', 'F', 'E', 'P', 'O', 'U', 'N', 'H', 'M', 'Q', 'C', 'D', 'I'};
@@ -51,7 +49,6 @@ Letter processReverseRotor(Letter l, char* r) {
 }
 
 
-// Function to perform Enigma encryption/decryption with given rotor settings
 std::string enigma(const std::string& input) {
     char ROTOR_I[26];
     for(int i = 0; i < 26; i++) {
@@ -62,23 +59,18 @@ std::string enigma(const std::string& input) {
         ROTOR_II[i] = ROTOR_II_BASE[i];
     }
 
-    for(int i = 0; i < 25; i++) {
-    //rotateRotor(ROTOR_I);
-    }
     std::string output;
     for (char c : input) {
-        // Convert to uppercase if necessary
         c = toupper(c);
 
         int index = getIndexFromRotor(c, ROMAN);
-        //std::cout << "Letter: " << c << " at index: " << index << std::endl;
         assert(index != -1);
 
         Letter l = {c, index};
         std::cout << l.c;
 
         // Rotate the rotors
-        //rotateRotor(ROTOR_I);
+        rotateRotor(ROTOR_I);
 
         l = processRotor(l, STATIC_ROTOR);
         std::cout << " -> S:" << l.c;
@@ -110,9 +102,8 @@ std::string enigma(const std::string& input) {
 }
 
 int main() {
-    std::string originalMessage = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Example encrypted message
+    std::string originalMessage = "HELLOWORLD";
 
-    // Decrypt the message using the simplified Enigma machine
     std::string encryptedMessage = enigma(originalMessage);
     std::cout << "Encrypted message: " << encryptedMessage << std::endl;
     std::cout << std::endl;
